@@ -13,13 +13,13 @@ import java.util.List;
 public class PacketDecoder extends ByteToMessageDecoder {
   @Override
   protected void decode(
-      ChannelHandlerContext ctx, @NotNull ByteBuf byteBuf, @NotNull List<Object> out)
-      throws Exception {
+          ChannelHandlerContext ctx, @NotNull ByteBuf byteBuf, @NotNull List<Object> out)
+          throws Exception {
     Packet packet =
-        PacketInitializer.singleton()
-            .packetClasses()
-            .get(byteBuf.readInt())
-            .newInstance();
+            PacketInitializer.singleton()
+                    .packetClasses()
+                    .get(byteBuf.readInt())
+                    .newInstance();
     packet.readPacketData(new PacketBuffer(byteBuf));
     out.add(packet);
   }

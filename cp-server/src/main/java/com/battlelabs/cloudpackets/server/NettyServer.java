@@ -13,9 +13,10 @@ public abstract class NettyServer implements INettyServer {
 
   private final String host;
   private final int port;
+
+  private final NioEventLoopGroup bossNioEventLoopGroup = new NioEventLoopGroup(1), workerNioEventLoopGroup = new NioEventLoopGroup(0);
   private final Map<ChannelHandlerContext, ConnectedClient> connectedClients = new HashMap<>();
   private ChannelFuture channelFuture;
-  private final NioEventLoopGroup bossNioEventLoopGroup = new NioEventLoopGroup(1), workerNioEventLoopGroup = new NioEventLoopGroup(0);
 
   public NettyServer(String host, int port) {
     this.host = host;

@@ -12,6 +12,10 @@ public final class PacketInitializer {
   private final HashMap<Integer, Class<? extends Packet>> packetClasses = new HashMap<>();
   private final HashMap<Class<? extends Packet>, Integer> packetIDMap = new HashMap<>();
 
+  public static PacketInitializer singleton() {
+    return SINGLETON;
+  }
+
   @SafeVarargs
   public final void registerPackets(Class<? extends Packet> @NotNull ... classes) {
     for (int id = 0; id < classes.length; id++) {
@@ -27,9 +31,5 @@ public final class PacketInitializer {
 
   public HashMap<Class<? extends Packet>, Integer> packetIDMap() {
     return packetIDMap;
-  }
-
-  public static PacketInitializer singleton() {
-    return SINGLETON;
   }
 }
