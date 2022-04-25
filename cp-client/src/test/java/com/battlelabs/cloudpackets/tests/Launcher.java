@@ -9,15 +9,15 @@ public class Launcher {
     // Needs to be the same order on client and server
     PacketInitializer.singleton().registerPackets(TestPacket.class);
 
-    final TestNettyServer server = new TestNettyServer();
+    final TestNettyClient client = new TestNettyClient();
     try {
-      server.start();
-      System.out.println("Successfully started server.");
+      client.connect();
+      System.out.println("Successfully connected.");
     } catch (InterruptedException e) {
-      System.out.printf("Failed to start server. (%s)%n", e);
+      System.out.printf("Failed to connect. (%s)%n", e);
     }
 
-    Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+    Runtime.getRuntime().addShutdownHook(new Thread(client::disconnect));
   }
 
 }
