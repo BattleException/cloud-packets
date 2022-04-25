@@ -1,0 +1,5 @@
+rootProject.name = 'cloud-packets'
+include 'cp-client'
+include 'cp-server'
+include 'cp-commons'
+
