@@ -5,11 +5,40 @@ plugins {
 group 'com.battlelabs'
 version '1.0-SNAPSHOT'
 
+
+configurations {
+  includeInJar
+  implementation.extendsFrom(includeInJar)
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
+  includeInJar project(":cp-client")
+
+  includeInJar project(":cp-commons")
+  includeInJar("io.netty:netty-all:4.1.63.Final")
+  includeInJar("com.google.code.gson:gson:2.9.0")
+
+
+  includeInJar project(":cp-server")
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'UTF-8'
+}
+
+jar {
+  from {
+    duplicatesStrategy = 'include'
+    configurations.includeInJar.asFileTree.files.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
 }
 
 test {

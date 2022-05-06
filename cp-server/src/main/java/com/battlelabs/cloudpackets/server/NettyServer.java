@@ -77,9 +77,20 @@ public abstract class NettyServer implements INettyServer {
     return channelFuture;
   }
 
-  public record ConnectedClient(Channel channel) {
+  public static class ConnectedClient {
+
+    private final Channel channel;
+
+    public ConnectedClient(Channel channel) {
+      this.channel = channel;
+    }
+
     public void sendPacket(Packet packet) {
       this.channel.writeAndFlush(packet);
+    }
+
+    public Channel channel() {
+      return channel;
     }
   }
 }
